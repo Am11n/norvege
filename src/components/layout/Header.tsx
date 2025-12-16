@@ -94,7 +94,7 @@ export default function Header() {
           opacity: scrolled ? 0.5 : 0.3,
         }}
       />
-      <nav className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+      <nav className="container-wide mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="flex items-center justify-between h-24">
           {/* Logo */}
           <div style={{ filter: scrolled ? "none" : "drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3))" }}>

@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { generateMetadata as generateSEOMetadata } from "@/lib/seo";
 import { companyTimeline, teamMembers } from "@/content/company";
 import Timeline from "@/components/ui/timeline";
+import AboutHeroImage from "@/components/ui/AboutHeroImage";
 
 export const metadata: Metadata = generateSEOMetadata({
   title: "About Us - NORVEGE MINERALS AS",
@@ -14,25 +15,13 @@ export default function AboutPage() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section
-        className="relative overflow-hidden"
-        style={{ background: "var(--color-primary-main)" }}
-      >
-        {/* Decorative background elements */}
-        <div className="absolute inset-0 opacity-10">
-          <div
-            className="absolute top-0 right-0 w-96 h-96 rounded-full blur-3xl"
-            style={{ background: "var(--color-accent-main)" }}
-          />
-          <div
-            className="absolute bottom-0 left-0 w-96 h-96 rounded-full blur-3xl"
-            style={{ background: "var(--color-accent-main)" }}
-          />
-        </div>
+      <section className="relative overflow-hidden min-h-[600px] lg:min-h-[700px] flex items-center">
+        {/* Background Image */}
+        <AboutHeroImage />
 
-        {/* Subtle grid pattern */}
+        {/* Subtle grid pattern overlay */}
         <div
-          className="absolute inset-0 opacity-5 pointer-events-none"
+          className="absolute inset-0 opacity-5 pointer-events-none z-10"
           style={{
             backgroundImage: `
               linear-gradient(to right, rgba(255, 255, 255, 0.1) 1px, transparent 1px),
@@ -43,7 +32,7 @@ export default function AboutPage() {
         />
 
         {/* Content */}
-        <div className="container relative z-10 pt-32 pb-20 lg:pt-36 lg:pb-28">
+        <div className="container relative z-20 pt-32 pb-20 lg:pt-36 lg:pb-28">
           <div className="max-w-4xl mx-auto text-center">
             {/* Main Heading */}
             <h1
@@ -80,7 +69,7 @@ export default function AboutPage() {
             </p>
 
             {/* Key Values */}
-            <div className="flex flex-wrap justify-center gap-6 lg:gap-10 mt-12">
+            <div className="flex flex-wrap justify-center gap-6 lg:gap-10">
               <div className="text-center">
                 <div
                   className="text-2xl md:text-3xl font-bold mb-2"

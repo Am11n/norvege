@@ -215,8 +215,8 @@ export default function ContactStrip() {
           {/* Left Panel - Dark Background with Contact Info Cards + Map */}
           <div className="relative p-8 lg:p-12 xl:p-16">
             <div className="relative z-10">
-              {/* Contact Info Cards - 2x2 Grid */}
-              <div className="grid grid-cols-2 gap-5 lg:gap-6 mb-10">
+              {/* Contact Info Cards - responsive grid */}
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-5 lg:gap-6 mb-10">
                 {contactCards.map((card, index) => {
                   const IconComponent = card.icon;
                   return (
@@ -227,7 +227,7 @@ export default function ContactStrip() {
                       viewport={{ once: true }}
                       transition={{ delay: index * 0.1, duration: 0.5 }}
                       whileHover={{ y: -4, transition: { duration: 0.2 } }}
-                      className="group relative p-6 lg:p-8 rounded-xl overflow-hidden card-elevated"
+                      className="group relative p-6 lg:p-8 rounded-xl overflow-hidden card-elevated min-w-0"
                       style={{
                         background: `linear-gradient(135deg, color-mix(in srgb, var(--color-primary-main) 90%, transparent) 0%, color-mix(in srgb, var(--color-navy-800) 85%, transparent) 100%)`,
                         border: `1px solid color-mix(in srgb, var(--color-accent-main) 20%, transparent)`,
@@ -279,21 +279,35 @@ export default function ContactStrip() {
                       </p>
 
                       {/* Title - White text with better typography */}
-                      <h4
-                        className="text-base lg:text-lg font-bold mb-2 leading-tight relative z-10"
-                        style={{
-                          color: "var(--color-text-on-dark)",
-                          fontFamily: "var(--font-family-heading)",
-                          fontWeight: "var(--font-weight-bold)",
-                        }}
-                      >
-                        {card.title}
-                      </h4>
+                      {card.label === "EMAIL" ? (
+                        <a
+                          href={`mailto:${card.title}`}
+                          className="text-base md:text-lg lg:text-xl font-bold mb-2 leading-snug relative z-10 block min-w-0 break-all hover:opacity-80 transition-opacity"
+                          style={{
+                            color: "var(--color-text-on-dark)",
+                            fontFamily: "var(--font-family-heading)",
+                            fontWeight: "var(--font-weight-bold)",
+                          }}
+                        >
+                          {card.title}
+                        </a>
+                      ) : (
+                        <h4
+                          className="text-base md:text-lg lg:text-xl font-bold mb-2 leading-snug relative z-10 min-w-0 break-words"
+                          style={{
+                            color: "var(--color-text-on-dark)",
+                            fontFamily: "var(--font-family-heading)",
+                            fontWeight: "var(--font-weight-bold)",
+                          }}
+                        >
+                          {card.title}
+                        </h4>
+                      )}
 
                       {/* Subtitle - Light grey text with better spacing */}
                       {card.subtitle && (
                         <p
-                          className="text-xs lg:text-sm leading-relaxed relative z-10"
+                          className="text-xs md:text-sm leading-relaxed relative z-10"
                           style={{
                             color: "color-mix(in srgb, var(--color-text-on-dark) 70%, transparent)",
                             fontFamily: "var(--font-family-body)",

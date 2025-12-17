@@ -28,7 +28,7 @@ export default function Logo({ className = "" }: LogoProps) {
         }}
       />
 
-      <div className="relative h-24 md:h-28 lg:h-36 w-auto transition-all duration-300 group-hover:scale-105 flex items-center">
+      <div className="relative h-28 md:h-32 lg:h-40 w-auto transition-all duration-300 group-hover:scale-105 flex items-center">
         <div
           className="relative w-full h-full flex items-center"
           style={{

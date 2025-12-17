@@ -8,7 +8,7 @@ import { motion, AnimatePresence } from "framer-motion";
 // Hero slides with different content and project links
 const heroSlides = [
   {
-    src: "https://images.unsplash.com/photo-1581092160562-40aa08e78837?q=80&w=2070&auto=format&fit=crop",
+    src: "/images/hero/01.jpg",
     alt: "Mineral exploration site with geological formations",
     gradient:
       "linear-gradient(135deg, rgba(10, 14, 20, 0.85) 0%, rgba(15, 20, 25, 0.8) 50%, rgba(26, 31, 38, 0.85) 100%)",
@@ -22,7 +22,7 @@ const heroSlides = [
     secondaryCtaText: "Our Technology",
   },
   {
-    src: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?q=80&w=2070&auto=format&fit=crop",
+    src: "/images/hero/02.jpg",
     alt: "Mining operations and heavy machinery",
     gradient:
       "linear-gradient(135deg, rgba(15, 20, 25, 0.85) 0%, rgba(10, 14, 20, 0.8) 50%, rgba(26, 31, 38, 0.85) 100%)",
@@ -35,7 +35,7 @@ const heroSlides = [
     ctaText: "Explore Gaulstad/Mokk",
   },
   {
-    src: "https://images.unsplash.com/photo-1518709268805-4e9042af2176?q=80&w=2025&auto=format&fit=crop",
+    src: "/images/hero/03.jpg",
     alt: "Rare earth minerals and geological samples",
     gradient:
       "linear-gradient(135deg, rgba(26, 31, 38, 0.85) 0%, rgba(10, 14, 20, 0.8) 50%, rgba(15, 20, 25, 0.85) 100%)",
@@ -48,7 +48,7 @@ const heroSlides = [
     ctaText: "View All Projects",
   },
   {
-    src: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?q=80&w=2070&auto=format&fit=crop",
+    src: "/images/hero/04.jpg",
     alt: "Norwegian mining landscape with mountains",
     gradient:
       "linear-gradient(135deg, rgba(21, 27, 35, 0.85) 0%, rgba(15, 20, 25, 0.8) 50%, rgba(10, 14, 20, 0.85) 100%)",
@@ -61,7 +61,7 @@ const heroSlides = [
     ctaText: "Discover Our Portfolio",
   },
   {
-    src: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?q=80&w=2076&auto=format&fit=crop",
+    src: "/images/hero/05.jpg",
     alt: "Underground mining tunnel and mineral deposits",
     gradient:
       "linear-gradient(135deg, rgba(15, 31, 58, 0.7) 0%, rgba(26, 47, 77, 0.6) 50%, rgba(20, 35, 60, 0.7) 100%)",
@@ -118,7 +118,11 @@ export default function HeroSection() {
                 className="object-cover"
                 sizes="100vw"
                 quality={90}
-                unoptimized={slide.src.startsWith("http")}
+                onError={(e) => {
+                  // Hide image if it fails to load, show gradient fallback
+                  const target = e.target as HTMLImageElement;
+                  target.style.display = "none";
+                }}
               />
               {/* Deep Navy Overlay for better text readability */}
               <div

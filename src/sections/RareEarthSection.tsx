@@ -119,37 +119,32 @@ export default function RareEarthSection() {
     <section
       className="section relative overflow-hidden"
       style={{
-        background: `linear-gradient(180deg, var(--color-bg-default) 0%, var(--color-bg-subtle) 30%, var(--color-bg-subtle) 70%, var(--color-bg-default) 100%)`,
+        background: `linear-gradient(180deg, var(--color-bg-default) 0%, var(--color-bg-subtle) 35%, var(--color-bg-subtle) 65%, var(--color-bg-default) 100%)`,
       }}
     >
-      {/* Enhanced decorative background elements */}
-      <div className="absolute inset-0 opacity-[0.08]">
+      {/* Refined background elements */}
+      <div className="absolute inset-0 pointer-events-none">
         <div
-          className="absolute top-0 left-0 w-[600px] h-[600px] rounded-full blur-3xl"
-          style={{ background: "var(--color-primary-main)" }}
+          className="absolute inset-0 opacity-[0.25]"
+          style={{
+            background:
+              "radial-gradient(900px 520px at 20% 25%, color-mix(in srgb, var(--color-accent-main) 12%, transparent) 0%, transparent 65%)",
+          }}
         />
         <div
-          className="absolute bottom-0 right-0 w-[600px] h-[600px] rounded-full blur-3xl"
-          style={{ background: "var(--color-accent-main)" }}
+          className="absolute inset-0 opacity-[0.06]"
+          style={{
+            backgroundImage:
+              "radial-gradient(circle at 1px 1px, rgba(0,0,0,0.10) 1px, transparent 0)",
+            backgroundSize: "28px 28px",
+          }}
         />
       </div>
-
-      {/* Subtle grid pattern */}
-      <div
-        className="absolute inset-0 opacity-[0.03] pointer-events-none"
-        style={{
-          backgroundImage: `
-            linear-gradient(to right, var(--color-primary-main) 1px, transparent 1px),
-            linear-gradient(to bottom, var(--color-primary-main) 1px, transparent 1px)
-          `,
-          backgroundSize: "60px 60px",
-        }}
-      />
 
       <div className="container max-w-7xl relative z-10">
         {/* Header */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 18 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
@@ -160,18 +155,17 @@ export default function RareEarthSection() {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1, duration: 0.5 }}
-            className="text-eyebrow inline-block px-5 py-2.5 rounded-full mb-8"
+            className="text-eyebrow inline-block px-5 py-2.5 rounded-full mb-7"
             style={{
-              background: "color-mix(in srgb, var(--color-accent-main) 12%, transparent)",
+              background: "rgba(227, 161, 66, 0.16)",
               color: "var(--color-accent-main)",
-              border: `1px solid color-mix(in srgb, var(--color-accent-main) 25%, transparent)`,
-              boxShadow: "var(--shadow-accent)",
+              border: "1px solid rgba(227, 161, 66, 0.22)",
             }}
           >
             Strategic Context
           </motion.span>
           <h2
-            className="text-display mb-6"
+            className="text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold leading-tight mb-6"
             style={{
               color: "var(--color-text-body)",
               fontFamily: "var(--font-family-heading)",
@@ -189,28 +183,106 @@ export default function RareEarthSection() {
             </span>
           </h2>
           <p
-            className="text-lg md:text-xl lg:text-2xl max-w-4xl mx-auto text-center block"
+            className="text-lg md:text-xl leading-relaxed max-w-3xl mx-auto"
             style={{
               color: "var(--color-text-secondary)",
               lineHeight: "var(--line-height-loose)",
               fontFamily: "var(--font-family-body)",
-              fontWeight: "var(--font-weight-medium)",
-              letterSpacing: "-0.01em",
             }}
           >
             From Dependency to Dominance
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-20">
-          {/* Left Column - The Critical Dependency */}
+        {/* Quick stats (refined cards) */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 mb-16 lg:mb-20">
+          {dependencyStats.map((stat, index) => {
+            const IconComponent = stat.icon;
+            return (
+              <motion.div
+                key={stat.title}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: index * 0.08, duration: 0.5 }}
+                className="rounded-3xl p-8 lg:p-9 relative overflow-hidden"
+                style={{
+                  background: "rgba(255, 255, 255, 0.78)",
+                  border: "1px solid rgba(15, 23, 42, 0.12)",
+                  boxShadow: "0 22px 60px rgba(15, 23, 42, 0.10)",
+                  backdropFilter: "blur(10px)",
+                  WebkitBackdropFilter: "blur(10px)",
+                }}
+              >
+                <div
+                  className="absolute -top-24 -right-24 w-[520px] h-[520px] rounded-full opacity-35"
+                  style={{
+                    background:
+                      "radial-gradient(circle, color-mix(in srgb, var(--color-accent-main) 20%, transparent) 0%, transparent 65%)",
+                  }}
+                />
+                <div className="relative flex flex-col gap-5">
+                  <div className="flex items-start gap-4">
+                    <div
+                      className="w-14 h-14 rounded-2xl flex items-center justify-center flex-shrink-0"
+                      style={{
+                        background: "rgba(227, 161, 66, 0.14)",
+                        color: "var(--color-accent-main)",
+                        border: "1px solid rgba(227, 161, 66, 0.22)",
+                      }}
+                    >
+                      <IconComponent className="w-7 h-7" />
+                    </div>
+                    <div className="flex-1">
+                      <div
+                        className="text-4xl lg:text-5xl font-extrabold leading-none"
+                        style={{
+                          color: "var(--color-accent-main)",
+                          fontFamily: "var(--font-family-heading)",
+                          fontWeight: "var(--font-weight-black)",
+                        }}
+                      >
+                        {stat.number}
+                      </div>
+                      <div
+                        className="mt-2 text-xl md:text-2xl font-bold"
+                        style={{
+                          color: "var(--color-text-body)",
+                          fontFamily: "var(--font-family-heading)",
+                          letterSpacing: "-0.01em",
+                        }}
+                      >
+                        {stat.title}
+                      </div>
+                    </div>
+                  </div>
+                  <p
+                    className="text-base md:text-lg leading-relaxed"
+                    style={{
+                      color: "var(--color-text-secondary)",
+                      fontFamily: "var(--font-family-body)",
+                      lineHeight: "var(--line-height-base)",
+                    }}
+                  >
+                    {stat.description}
+                  </p>
+                </div>
+              </motion.div>
+            );
+          })}
+        </div>
+
+        {/* Narrative + Response (refined layout) */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
+          {/* Left: Narrative + key minerals chips */}
           <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 18 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
+            className="lg:col-span-5"
           >
-            <div className="flex items-center gap-4 mb-12">
+            <div className="flex items-center gap-4 mb-6">
               <div
                 className="w-14 h-14 rounded-2xl flex items-center justify-center flex-shrink-0"
                 style={{
@@ -222,7 +294,7 @@ export default function RareEarthSection() {
                 <ExclamationTriangleIcon className="w-7 h-7" />
               </div>
               <h3
-                className="text-3xl md:text-4xl lg:text-5xl font-bold"
+                className="text-3xl md:text-4xl font-bold"
                 style={{
                   color: "var(--color-text-body)",
                   fontFamily: "var(--font-family-heading)",
@@ -234,135 +306,82 @@ export default function RareEarthSection() {
               </h3>
             </div>
 
-            <p
-              className="text-base md:text-lg leading-relaxed mb-8"
+            <div
+              className="rounded-3xl p-8 md:p-9 lg:p-10 relative overflow-hidden"
               style={{
-                color: "var(--color-text-body)",
-                fontFamily: "var(--font-family-body)",
-                lineHeight: "var(--line-height-base)",
+                background: "rgba(255, 255, 255, 0.78)",
+                border: "1px solid rgba(15, 23, 42, 0.12)",
+                boxShadow: "0 22px 60px rgba(15, 23, 42, 0.10)",
+                backdropFilter: "blur(10px)",
+                WebkitBackdropFilter: "blur(10px)",
               }}
             >
-              Europe is heavily dependent on imports for strategic resources. Renewable energy and
-              5G infrastructure require large amounts of{" "}
-              <strong>Copper, Nickel, Lithium, Cobalt, and Rare Earth Elements (REEs)</strong>.
-            </p>
-            <p
-              className="text-base md:text-lg leading-relaxed mb-8"
-              style={{
-                color: "var(--color-text-body)",
-                fontFamily: "var(--font-family-body)",
-                lineHeight: "var(--line-height-base)",
-              }}
-            >
-              Recycling alone cannot cover the demand. Responsible, domestic mining is crucial for
-              Norway&apos;s security of supply and independence.
-            </p>
+              <div
+                className="absolute -bottom-24 -left-24 w-[520px] h-[520px] rounded-full opacity-30"
+                style={{
+                  background:
+                    "radial-gradient(circle, color-mix(in srgb, var(--color-primary-main) 18%, transparent) 0%, transparent 70%)",
+                }}
+              />
+              <div className="relative">
+                <p
+                  className="text-base md:text-lg leading-relaxed mb-6"
+                  style={{
+                    color: "var(--color-text-body)",
+                    fontFamily: "var(--font-family-body)",
+                    lineHeight: "var(--line-height-base)",
+                  }}
+                >
+                  Europe is heavily dependent on imports for strategic resources. Renewable energy
+                  and 5G infrastructure require large amounts of{" "}
+                  <strong style={{ color: "var(--color-text-body)" }}>
+                    Copper, Nickel, Lithium, Cobalt, and Rare Earth Elements (REEs)
+                  </strong>
+                  .
+                </p>
 
-            <div className="space-y-6">
-              {dependencyStats.map((stat, index) => {
-                const IconComponent = stat.icon;
-                return (
-                  <motion.div
-                    key={stat.title}
-                    initial={{ opacity: 0, y: 30 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: index * 0.15, duration: 0.6 }}
-                    whileHover={{ y: -4, transition: { duration: 0.3 } }}
-                    className="group relative"
-                  >
-                    <div
-                      className="relative p-8 lg:p-10 rounded-3xl transition-all duration-500 overflow-hidden card-elevated"
+                <div className="flex flex-wrap gap-2.5 mb-6">
+                  {["Copper", "Nickel", "Lithium", "Cobalt", "Rare Earths"].map((m) => (
+                    <span
+                      key={m}
+                      className="px-4 py-2.5 rounded-full text-sm font-semibold"
                       style={{
-                        background: "var(--color-surface-card)",
-                        border: `1px solid color-mix(in srgb, var(--color-border-light) 50%, transparent)`,
-                        boxShadow: "var(--shadow-md)",
+                        background: "rgba(255, 255, 255, 0.9)",
+                        color: "var(--color-text-body)",
+                        border: "1px solid rgba(15, 23, 42, 0.10)",
+                        fontFamily: "var(--font-family-body)",
+                        boxShadow: "0 2px 8px rgba(15, 23, 42, 0.06)",
                       }}
                     >
-                      {/* Hover glow */}
-                      <motion.div
-                        className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                        style={{
-                          background: `radial-gradient(circle at center, color-mix(in srgb, var(--color-accent-main) 8%, transparent) 0%, transparent 70%)`,
-                        }}
-                      />
+                      {m}
+                    </span>
+                  ))}
+                </div>
 
-                      {/* Subtle border glow on hover */}
-                      <motion.div
-                        className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                        style={{
-                          border: `2px solid color-mix(in srgb, var(--color-accent-main) 20%, transparent)`,
-                          pointerEvents: "none",
-                        }}
-                      />
-
-                      <div className="relative flex items-start gap-6">
-                        {/* Number Badge */}
-                        <div className="flex-shrink-0">
-                          <motion.div
-                            className="w-24 h-24 lg:w-28 lg:h-28 rounded-2xl flex items-center justify-center text-3xl lg:text-4xl font-extrabold text-white"
-                            style={{
-                              background:
-                                "linear-gradient(135deg, var(--color-accent-main) 0%, var(--color-accent-hover) 100%)",
-                              boxShadow: "var(--shadow-accent-lg)",
-                            }}
-                            whileHover={{ scale: 1.05, rotate: [0, -5, 5, -5, 0] }}
-                            transition={{ duration: 0.3 }}
-                          >
-                            {stat.number}
-                          </motion.div>
-                        </div>
-
-                        {/* Content */}
-                        <div className="flex-1 pt-2">
-                          <div className="flex items-center gap-3 mb-4">
-                            <div
-                              className="w-11 h-11 rounded-xl flex items-center justify-center flex-shrink-0"
-                              style={{
-                                background: stat.bgColor,
-                                color: "var(--color-primary-main)",
-                              }}
-                            >
-                              <IconComponent className="w-6 h-6" />
-                            </div>
-                            <h4
-                              className="text-xl md:text-2xl font-bold"
-                              style={{
-                                color: "var(--color-text-body)",
-                                fontFamily: "var(--font-family-heading)",
-                                fontWeight: "var(--font-weight-bold)",
-                              }}
-                            >
-                              {stat.title}
-                            </h4>
-                          </div>
-                          <p
-                            className="leading-relaxed"
-                            style={{
-                              color: "var(--color-text-secondary)",
-                              fontFamily: "var(--font-family-body)",
-                              lineHeight: "var(--line-height-base)",
-                            }}
-                          >
-                            {stat.description}
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  </motion.div>
-                );
-              })}
+                <p
+                  className="text-base md:text-lg leading-relaxed"
+                  style={{
+                    color: "var(--color-text-body)",
+                    fontFamily: "var(--font-family-body)",
+                    lineHeight: "var(--line-height-base)",
+                  }}
+                >
+                  Recycling alone cannot cover the demand. Responsible, domestic mining is crucial
+                  for Norway&apos;s security of supply and independence.
+                </p>
+              </div>
             </div>
           </motion.div>
 
-          {/* Right Column - The European Response */}
+          {/* Right: Response cards + targets + highlight */}
           <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
+            initial={{ opacity: 0, y: 18 }}
+            whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
+            transition={{ duration: 0.6, delay: 0.05 }}
+            className="lg:col-span-7 space-y-6"
           >
-            <div className="flex items-center gap-4 mb-12">
+            <div className="flex items-center gap-4 mb-6">
               <div
                 className="w-14 h-14 rounded-2xl flex items-center justify-center flex-shrink-0"
                 style={{
@@ -374,7 +393,7 @@ export default function RareEarthSection() {
                 <CheckCircleIcon className="w-7 h-7" />
               </div>
               <h3
-                className="text-3xl md:text-4xl lg:text-5xl font-bold"
+                className="text-3xl md:text-4xl font-bold"
                 style={{
                   color: "var(--color-text-body)",
                   fontFamily: "var(--font-family-heading)",
@@ -386,271 +405,218 @@ export default function RareEarthSection() {
               </h3>
             </div>
 
-            <div className="space-y-8">
-              {/* Critical Raw Materials Act Card */}
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.1, duration: 0.6 }}
-                whileHover={{ y: -4, transition: { duration: 0.3 } }}
-                className="group relative"
+            {/* Act + targets */}
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <div
+                className="rounded-3xl p-8 md:p-9 relative overflow-hidden"
+                style={{
+                  background: "rgba(255, 255, 255, 0.78)",
+                  border: "1px solid rgba(15, 23, 42, 0.12)",
+                  boxShadow: "0 22px 60px rgba(15, 23, 42, 0.10)",
+                  backdropFilter: "blur(10px)",
+                  WebkitBackdropFilter: "blur(10px)",
+                }}
               >
                 <div
-                  className="relative p-8 rounded-3xl transition-all duration-500 overflow-hidden"
-                  style={{
-                    background: "white",
-                    border: "1px solid rgba(0, 0, 0, 0.08)",
-                    boxShadow: "0 10px 40px rgba(0, 0, 0, 0.08)",
-                  }}
-                >
-                  <motion.div
-                    className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                    style={{
-                      background: `radial-gradient(circle at center, color-mix(in srgb, var(--color-accent-main) 10%, transparent) 0%, transparent 70%)`,
-                    }}
-                  />
-
-                  <div className="relative flex items-start gap-6">
-                    <motion.div
-                      className="w-18 h-18 lg:w-20 lg:h-20 rounded-2xl flex items-center justify-center flex-shrink-0"
-                      style={{
-                        background:
-                          "linear-gradient(135deg, var(--color-accent-main) 0%, var(--color-accent-hover) 100%)",
-                        color: "var(--color-accent-contrast)",
-                        boxShadow: "var(--shadow-accent-lg)",
-                      }}
-                      whileHover={{ scale: 1.05, rotate: [0, -5, 5, -5, 0] }}
-                      transition={{ duration: 0.3 }}
-                    >
-                      <CheckCircleIcon className="w-9 h-9 lg:w-10 lg:h-10" />
-                    </motion.div>
-                    <div className="flex-1">
-                      <h4
-                        className="text-xl md:text-2xl font-bold mb-4"
-                        style={{
-                          color: "var(--color-text-body)",
-                          fontFamily: "var(--font-family-heading)",
-                          fontWeight: "var(--font-weight-bold)",
-                        }}
-                      >
-                        The Critical Raw Materials Act
-                      </h4>
-                      <p
-                        className="leading-relaxed"
-                        style={{
-                          color: "var(--color-text-secondary)",
-                          fontFamily: "var(--font-family-body)",
-                          lineHeight: "var(--line-height-base)",
-                        }}
-                      >
-                        EU strategic plan to build a secure and resilient domestic supply chain,
-                        reducing dependency on third countries for critical raw materials.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-
-              {/* Production Targets Card */}
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.2, duration: 0.6 }}
-                whileHover={{ y: -4, transition: { duration: 0.3 } }}
-                className="group relative"
-              >
-                <div
-                  className="relative p-8 rounded-3xl transition-all duration-500 overflow-hidden"
-                  style={{
-                    background: "white",
-                    border: "1px solid rgba(0, 0, 0, 0.08)",
-                    boxShadow: "0 10px 40px rgba(0, 0, 0, 0.08)",
-                  }}
-                >
-                  <motion.div
-                    className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                    style={{
-                      background: `radial-gradient(circle at center, color-mix(in srgb, var(--color-accent-main) 10%, transparent) 0%, transparent 70%)`,
-                    }}
-                  />
-
-                  <div className="relative">
-                    <div className="flex items-center gap-4 mb-8">
-                      <motion.div
-                        className="w-18 h-18 lg:w-20 lg:h-20 rounded-2xl flex items-center justify-center flex-shrink-0"
-                        style={{
-                          background:
-                            "linear-gradient(135deg, var(--color-accent-main) 0%, var(--color-accent-hover) 100%)",
-                          color: "var(--color-accent-contrast)",
-                          boxShadow: "var(--shadow-accent-lg)",
-                        }}
-                        whileHover={{ scale: 1.05, rotate: [0, -5, 5, -5, 0] }}
-                        transition={{ duration: 0.3 }}
-                      >
-                        <ChartBarIcon className="w-9 h-9 lg:w-10 lg:h-10" />
-                      </motion.div>
-                      <h4
-                        className="text-xl md:text-2xl font-bold"
-                        style={{
-                          color: "var(--color-text-body)",
-                          fontFamily: "var(--font-family-heading)",
-                          fontWeight: "var(--font-weight-bold)",
-                        }}
-                      >
-                        Domestic Production Targets
-                      </h4>
-                    </div>
-
-                    <div className="space-y-6">
-                      {responseTargets.map((target, index) => (
-                        <motion.div
-                          key={target.label}
-                          initial={{ opacity: 0, x: 20 }}
-                          whileInView={{ opacity: 1, x: 0 }}
-                          viewport={{ once: true }}
-                          transition={{ delay: 0.3 + index * 0.1, duration: 0.5 }}
-                        >
-                          <div className="flex justify-between items-center mb-3">
-                            <span
-                              className="text-sm font-semibold"
-                              style={{
-                                color: "var(--color-text-body)",
-                                fontFamily: "var(--font-family-body)",
-                                fontWeight: "var(--font-weight-semibold)",
-                              }}
-                            >
-                              {target.label}
-                            </span>
-                            <span
-                              className="text-lg font-bold"
-                              style={{
-                                color: "var(--color-accent-main)",
-                                fontFamily: "var(--font-family-heading)",
-                                fontWeight: "var(--font-weight-bold)",
-                              }}
-                            >
-                              {target.value}%
-                            </span>
-                          </div>
-                          <div
-                            className="relative w-full h-3 rounded-full overflow-hidden progress-bar-track"
-                            style={{
-                              background:
-                                "color-mix(in srgb, var(--color-primary-main) 10%, transparent)",
-                            }}
-                          >
-                            <motion.div
-                              className="h-full rounded-full progress-bar-filled"
-                              style={{ background: "var(--color-accent-main)" }}
-                              initial={{ width: 0 }}
-                              whileInView={{ width: `${target.value}%` }}
-                              viewport={{ once: true }}
-                              transition={{
-                                delay: 0.4 + index * 0.1,
-                                duration: 1,
-                                ease: "easeOut",
-                              }}
-                            />
-                            <div
-                              className="absolute inset-0 opacity-30"
-                              style={{
-                                background:
-                                  "linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.3) 50%, transparent 100%)",
-                              }}
-                            />
-                          </div>
-                        </motion.div>
-                      ))}
-                    </div>
-                  </div>
-                </div>
-              </motion.div>
-
-              {/* Highlight Card - 8.8 Mt */}
-              <motion.div
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: 0.3, duration: 0.6 }}
-                whileHover={{ scale: 1.02, transition: { duration: 0.3 } }}
-                className="relative group"
-              >
-                <div
-                  className="relative p-10 rounded-3xl overflow-hidden"
+                  className="absolute -top-24 -right-24 w-[520px] h-[520px] rounded-full opacity-30"
                   style={{
                     background:
-                      "linear-gradient(135deg, var(--color-navy-deep) 0%, var(--color-navy-800) 100%)",
-                    boxShadow: "0 20px 60px rgba(0, 0, 0, 0.3)",
+                      "radial-gradient(circle, color-mix(in srgb, var(--color-accent-main) 18%, transparent) 0%, transparent 65%)",
                   }}
-                >
-                  {/* Decorative elements */}
+                />
+                <div className="relative flex items-start gap-5">
                   <div
-                    className="absolute top-0 right-0 w-64 h-64 rounded-full opacity-20 blur-3xl"
-                    style={{ background: "var(--color-gold-mustard)" }}
-                  />
-                  <div
-                    className="absolute bottom-0 left-0 w-48 h-48 rounded-full opacity-10 blur-2xl"
-                    style={{ background: "var(--color-gold-mustard)" }}
-                  />
+                    className="w-14 h-14 rounded-2xl flex items-center justify-center flex-shrink-0"
+                    style={{
+                      background:
+                        "linear-gradient(135deg, var(--color-accent-main) 0%, var(--color-accent-hover) 100%)",
+                      color: "var(--color-accent-contrast)",
+                      boxShadow: "var(--shadow-accent-lg)",
+                    }}
+                  >
+                    <CheckCircleIcon className="w-7 h-7" />
+                  </div>
+                  <div className="flex-1">
+                    <h4
+                      className="text-xl md:text-2xl font-bold mb-3"
+                      style={{
+                        color: "var(--color-text-body)",
+                        fontFamily: "var(--font-family-heading)",
+                        letterSpacing: "-0.01em",
+                      }}
+                    >
+                      Critical Raw Materials Act
+                    </h4>
+                    <p
+                      className="text-base md:text-lg leading-relaxed"
+                      style={{
+                        color: "var(--color-text-secondary)",
+                        fontFamily: "var(--font-family-body)",
+                        lineHeight: "var(--line-height-base)",
+                      }}
+                    >
+                      A strategic plan to build a secure and resilient domestic supply chain and
+                      reduce dependency on third countries for critical raw materials.
+                    </p>
+                  </div>
+                </div>
+              </div>
 
-                  <div className="relative flex items-start gap-6">
-                    <motion.div
-                      className="w-20 h-20 lg:w-24 lg:h-24 rounded-2xl flex items-center justify-center flex-shrink-0"
+              <div
+                className="rounded-3xl p-8 md:p-9 relative overflow-hidden"
+                style={{
+                  background: "rgba(255, 255, 255, 0.78)",
+                  border: "1px solid rgba(15, 23, 42, 0.12)",
+                  boxShadow: "0 22px 60px rgba(15, 23, 42, 0.10)",
+                  backdropFilter: "blur(10px)",
+                  WebkitBackdropFilter: "blur(10px)",
+                }}
+              >
+                <div
+                  className="absolute -bottom-24 -left-24 w-[520px] h-[520px] rounded-full opacity-30"
+                  style={{
+                    background:
+                      "radial-gradient(circle, color-mix(in srgb, var(--color-primary-main) 18%, transparent) 0%, transparent 70%)",
+                  }}
+                />
+                <div className="relative">
+                  <div className="flex items-center gap-4 mb-6">
+                    <div
+                      className="w-14 h-14 rounded-2xl flex items-center justify-center flex-shrink-0"
                       style={{
                         background:
                           "linear-gradient(135deg, var(--color-accent-main) 0%, var(--color-accent-hover) 100%)",
-                        boxShadow: "var(--shadow-accent-lg)",
                         color: "var(--color-accent-contrast)",
+                        boxShadow: "var(--shadow-accent-lg)",
                       }}
-                      whileHover={{ scale: 1.05, rotate: [0, -5, 5, -5, 0] }}
-                      transition={{ duration: 0.3 }}
                     >
-                      <GlobeAltIcon className="w-11 h-11 lg:w-12 lg:h-12" />
-                    </motion.div>
-                    <div className="flex-1">
-                      <motion.div
-                        className="text-5xl md:text-6xl lg:text-7xl font-extrabold mb-4"
-                        style={{
-                          color: "var(--color-accent-main)",
-                          fontFamily: "var(--font-family-heading)",
-                          fontWeight: "var(--font-weight-black)",
-                        }}
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        whileInView={{ opacity: 1, scale: 1 }}
-                        viewport={{ once: true }}
-                        transition={{ delay: 0.4, duration: 0.5, type: "spring" }}
-                      >
-                        8.8 Mt
-                      </motion.div>
-                      <h4
-                        className="text-2xl lg:text-3xl font-bold mb-4"
-                        style={{
-                          color: "var(--color-text-on-dark)",
-                          fontFamily: "var(--font-family-heading)",
-                          fontWeight: "var(--font-weight-bold)",
-                        }}
-                      >
-                        Unlocking Domestic Resources
-                      </h4>
-                      <p
-                        className="leading-relaxed"
-                        style={{
-                          color: "color-mix(in srgb, var(--color-text-on-dark) 85%, transparent)",
-                          fontFamily: "var(--font-family-body)",
-                          lineHeight: "var(--line-height-base)",
-                        }}
-                      >
-                        Europe&apos;s largest REE deposit discovery in Fen, Norway positions the EU
-                        to reduce import dependency. Norvege Minerals is strategically positioned to
-                        play a key role in securing Europe&apos;s future supply of critical raw
-                        materials.
-                      </p>
+                      <ChartBarIcon className="w-7 h-7" />
                     </div>
+                    <h4
+                      className="text-xl md:text-2xl font-bold"
+                      style={{
+                        color: "var(--color-text-body)",
+                        fontFamily: "var(--font-family-heading)",
+                        letterSpacing: "-0.01em",
+                      }}
+                    >
+                      2030 Targets
+                    </h4>
+                  </div>
+
+                  <div className="space-y-5">
+                    {responseTargets.map((target, i) => (
+                      <div key={target.label}>
+                        <div className="flex justify-between items-center mb-2.5">
+                          <span
+                            className="text-sm md:text-base font-semibold"
+                            style={{
+                              color: "var(--color-text-body)",
+                              fontFamily: "var(--font-family-body)",
+                            }}
+                          >
+                            {target.label}
+                          </span>
+                          <span
+                            className="text-base md:text-lg font-bold"
+                            style={{
+                              color: "var(--color-accent-main)",
+                              fontFamily: "var(--font-family-heading)",
+                            }}
+                          >
+                            {target.value}%
+                          </span>
+                        </div>
+                        <div
+                          className="relative w-full h-3 rounded-full overflow-hidden"
+                          style={{
+                            background: "rgba(15, 23, 42, 0.08)",
+                          }}
+                        >
+                          <motion.div
+                            className="h-full rounded-full"
+                            style={{
+                              background:
+                                "linear-gradient(90deg, var(--color-accent-main) 0%, var(--color-gold-400) 100%)",
+                            }}
+                            initial={{ width: 0 }}
+                            whileInView={{ width: `${target.value}%` }}
+                            viewport={{ once: true }}
+                            transition={{ delay: 0.2 + i * 0.08, duration: 0.9, ease: "easeOut" }}
+                          />
+                        </div>
+                      </div>
+                    ))}
                   </div>
                 </div>
-              </motion.div>
+              </div>
+            </div>
+
+            {/* Highlight card */}
+            <div
+              className="rounded-3xl p-9 md:p-10 lg:p-12 relative overflow-hidden"
+              style={{
+                background:
+                  "linear-gradient(135deg, var(--color-navy-deep) 0%, var(--color-navy-800) 100%)",
+                boxShadow: "0 24px 72px rgba(0, 0, 0, 0.32)",
+              }}
+            >
+              <div
+                className="absolute top-0 right-0 w-80 h-80 rounded-full opacity-25 blur-3xl"
+                style={{ background: "var(--color-gold-mustard)" }}
+              />
+              <div
+                className="absolute bottom-0 left-0 w-64 h-64 rounded-full opacity-15 blur-2xl"
+                style={{ background: "var(--color-gold-mustard)" }}
+              />
+
+              <div className="relative flex flex-col md:flex-row items-start md:items-center gap-6 md:gap-8">
+                <div
+                  className="w-18 h-18 md:w-20 md:h-20 rounded-2xl flex items-center justify-center flex-shrink-0"
+                  style={{
+                    background:
+                      "linear-gradient(135deg, var(--color-accent-main) 0%, var(--color-accent-hover) 100%)",
+                    boxShadow: "var(--shadow-accent-lg)",
+                    color: "var(--color-accent-contrast)",
+                  }}
+                >
+                  <GlobeAltIcon className="w-10 h-10" />
+                </div>
+                <div className="flex-1">
+                  <div
+                    className="text-5xl md:text-6xl lg:text-7xl font-extrabold leading-none"
+                    style={{
+                      color: "var(--color-accent-main)",
+                      fontFamily: "var(--font-family-heading)",
+                      fontWeight: "var(--font-weight-black)",
+                    }}
+                  >
+                    8.8 Mt
+                  </div>
+                  <div
+                    className="mt-3 text-2xl md:text-3xl font-bold"
+                    style={{
+                      color: "var(--color-text-on-dark)",
+                      fontFamily: "var(--font-family-heading)",
+                      letterSpacing: "-0.01em",
+                    }}
+                  >
+                    Unlocking Domestic Resources
+                  </div>
+                  <p
+                    className="mt-4 text-base md:text-lg leading-relaxed"
+                    style={{
+                      color: "color-mix(in srgb, var(--color-text-on-dark) 88%, transparent)",
+                      fontFamily: "var(--font-family-body)",
+                      lineHeight: "var(--line-height-base)",
+                    }}
+                  >
+                    Europe&apos;s largest REE deposit discovery in Fen, Norway positions the EU to
+                    reduce import dependency. Norvege Minerals is strategically positioned to play a
+                    key role in securing Europe&apos;s future supply of critical raw materials.
+                  </p>
+                </div>
+              </div>
             </div>
           </motion.div>
         </div>

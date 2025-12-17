@@ -351,7 +351,8 @@ h4 {
 }
 
 p {
-  margin: 0 0 var(--space-4) 0;
+  /* Only control vertical spacing so utilities like `mx-auto` can control horizontal margins */
+  margin-block: 0 var(--space-4);
   color: var(--color-text-body);
   font-family: var(--font-family-body);
   line-height: var(--line-height-base);

@@ -2,6 +2,8 @@
 
 import Link from "next/link";
 import Image from "next/image";
+import { useEffect, useMemo, useState } from "react";
+import { AnimatePresence, motion } from "framer-motion";
 import { projects } from "@/content/projects";
 
 // Custom icons
@@ -40,21 +42,93 @@ const ArrowRightIcon = ({ className = "w-5 h-5" }: { className?: string }) => (
 // 2. Name them: project-skrattasen.jpg, project-gaulstad-mokk.jpg
 // 3. Update the paths below to use /images/ instead of Unsplash URLs
 
-const projectImages: { [key: string]: string } = {
-  // Skrattås-Byafossen - Zinc/Lead mining exploration
-  skrattasen:
-    "https://images.unsplash.com/photo-1581092160562-40aa08e78837?q=80&w=2070&auto=format&fit=crop",
-  // Gaulstad/Mokk - Copper mining, historic district
-  "gaulstad-mokk":
-    "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?q=80&w=2070&auto=format&fit=crop",
+const getLocalProjectImages = (slug: string): string[] => {
+  // You can add more files (04.jpg, 05.jpg, etc.)
+  return [
+    `/images/projects/${slug}/01.jpg`,
+    `/images/projects/${slug}/02.jpg`,
+    `/images/projects/${slug}/03.jpg`,
+    `/images/projects/${slug}/04.jpg`,
+    `/images/projects/${slug}/05.jpg`,
+  ];
 };
 
-// Helper to get image path (supports both local and remote)
-const getProjectImage = (slug: string): string => {
-  // Check if local image exists (you can implement a check here)
-  // For now, return the mapped image or fallback
-  return projectImages[slug] || projectImages.skrattasen;
+// Helper to get image candidates: local only (no remote fallbacks)
+const getProjectImages = (slug: string): string[] => {
+  return getLocalProjectImages(slug);
 };
+
+function ProjectImageRotator({ images, alt }: { images: string[]; alt: string }) {
+  const candidates = useMemo(() => images, [images]);
+  const [available, setAvailable] = useState<string[]>([]);
+  const [idx, setIdx] = useState(0);
+
+  // Filter candidates to ones that actually load (so missing local files don't show broken images)
+  useEffect(() => {
+    let cancelled = false;
+    const check = (src: string) =>
+      new Promise<string | null>((resolve) => {
+        const img = new window.Image();
+        img.onload = () => resolve(src);
+        img.onerror = () => resolve(null);
+        img.src = src;
+      });
+
+    (async () => {
+      const results = await Promise.all(candidates.map(check));
+      if (cancelled) return;
+      const loaded = results.filter(Boolean) as string[];
+      setAvailable(loaded);
+      setIdx(0);
+    })();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [candidates]);
+
+  useEffect(() => {
+    if (available.length <= 1) return;
+    const id = window.setInterval(() => {
+      setIdx((prev) => (prev + 1) % available.length);
+    }, 3500);
+    return () => window.clearInterval(id);
+  }, [available.length]);
+
+  if (!available.length) {
+    // No local images found; keep the card's gradient fallback visible.
+    return null;
+  }
+
+  const src = available[idx % available.length];
+
+  return (
+    <AnimatePresence mode="wait">
+      <motion.div
+        key={src}
+        className="absolute inset-0"
+        initial={{ opacity: 0.0, scale: 1.02 }}
+        animate={{ opacity: 1, scale: 1 }}
+        exit={{ opacity: 0.0, scale: 1.01 }}
+        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+      >
+        <Image
+          src={src}
+          alt={alt}
+          fill
+          className="object-cover z-10"
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 50vw"
+          quality={90}
+          unoptimized={src.startsWith("http")}
+          onError={(e) => {
+            const target = e.target as HTMLImageElement;
+            target.style.display = "none";
+          }}
+        />
+      </motion.div>
+    </AnimatePresence>
+  );
+}
 
 export default function ProjectsTeaser() {
   return (
@@ -88,10 +162,19 @@ export default function ProjectsTeaser() {
 
       {/* Enhanced radial gradient accent with gold tint */}
       <div
-        className="absolute inset-0 opacity-[0.25]"
+        className="absolute inset-0 opacity-[0.18] pointer-events-none"
         style={{
-          background:
-            "radial-gradient(ellipse at center, color-mix(in srgb, var(--color-accent-main) 8%, transparent) 0%, color-mix(in srgb, var(--color-base-black) 20%, transparent) 100%)",
+          background: `
+              radial-gradient(900px 520px at 50% 35%,
+                color-mix(in srgb, var(--color-accent-main) 14%, transparent) 0%,
+                color-mix(in srgb, var(--color-accent-main) 6%, transparent) 35%,
+                transparent 70%
+              ),
+              radial-gradient(1200px 800px at 50% 110%,
+                rgba(0, 0, 0, 0.55) 0%,
+                transparent 60%
+              )
+            `,
         }}
       />
 
@@ -157,7 +240,7 @@ export default function ProjectsTeaser() {
         {/* Project Cards - Show only first 2 projects */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-12 mb-16">
           {projects.slice(0, 2).map((project, index) => {
-            const projectImage = getProjectImage(project.slug);
+            const projectImageList = getProjectImages(project.slug);
             const isFirst = index === 0;
 
             return (
@@ -184,20 +267,9 @@ export default function ProjectsTeaser() {
                           }}
                         />
                         {/* Actual Image */}
-                        <Image
-                          src={projectImage}
+                        <ProjectImageRotator
+                          images={projectImageList}
                           alt={`${project.name} - ${project.region}, ${project.country}`}
-                          fill
-                          className="object-cover z-10"
-                          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 50vw"
-                          quality={90}
-                          priority={index === 0}
-                          unoptimized={projectImage.startsWith("http")}
-                          onError={(e) => {
-                            // Hide image if it fails to load, show gradient fallback
-                            const target = e.target as HTMLImageElement;
-                            target.style.display = "none";
-                          }}
                         />
                       </div>
 

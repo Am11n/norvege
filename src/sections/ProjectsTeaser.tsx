@@ -91,7 +91,7 @@ function ProjectImageRotator({ images, alt }: { images: string[]; alt: string })
     if (available.length <= 1) return;
     const id = window.setInterval(() => {
       setIdx((prev) => (prev + 1) % available.length);
-    }, 3500);
+    }, 6000); // Switch every 6 seconds
     return () => window.clearInterval(id);
   }, [available.length]);
 
@@ -110,7 +110,7 @@ function ProjectImageRotator({ images, alt }: { images: string[]; alt: string })
         initial={{ opacity: 0.0, scale: 1.02 }}
         animate={{ opacity: 1, scale: 1 }}
         exit={{ opacity: 0.0, scale: 1.01 }}
-        transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
+        transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
       >
         <Image
           src={src}

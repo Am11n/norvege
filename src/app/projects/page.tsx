@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { generateMetadata as generateSEOMetadata } from "@/lib/seo";
 import { projects } from "@/content/projects";
+import ProjectsHeroImage from "@/components/ui/ProjectsHeroImage";
 
 export const metadata: Metadata = generateSEOMetadata({
   title: "Projects - NORVEGE MINERALS AS",
@@ -13,25 +14,13 @@ export default function ProjectsPage() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section
-        className="relative overflow-hidden"
-        style={{ background: "var(--color-primary-main)" }}
-      >
-        {/* Decorative background elements */}
-        <div className="absolute inset-0 opacity-10">
-          <div
-            className="absolute top-0 right-0 w-96 h-96 rounded-full blur-3xl"
-            style={{ background: "var(--color-accent-main)" }}
-          />
-          <div
-            className="absolute bottom-0 left-0 w-96 h-96 rounded-full blur-3xl"
-            style={{ background: "var(--color-accent-main)" }}
-          />
-        </div>
+      <section className="relative overflow-hidden min-h-[600px] lg:min-h-[700px] flex items-center">
+        {/* Background Image */}
+        <ProjectsHeroImage />
 
-        {/* Subtle grid pattern */}
+        {/* Subtle grid pattern overlay */}
         <div
-          className="absolute inset-0 opacity-5 pointer-events-none"
+          className="absolute inset-0 opacity-5 pointer-events-none z-10"
           style={{
             backgroundImage: `
               linear-gradient(to right, rgba(255, 255, 255, 0.1) 1px, transparent 1px),
@@ -42,7 +31,7 @@ export default function ProjectsPage() {
         />
 
         {/* Content */}
-        <div className="container relative z-10 pt-32 pb-20 lg:pt-36 lg:pb-28">
+        <div className="container relative z-20 pt-32 pb-20 lg:pt-36 lg:pb-28">
           <div className="max-w-4xl mx-auto text-center">
             {/* Main Heading */}
             <h1

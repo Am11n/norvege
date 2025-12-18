@@ -2,9 +2,9 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import HeroVideo from "@/components/ui/HeroVideo";
+import HeroVideo, { HeroVideoRef } from "@/components/ui/HeroVideo";
 
 // Hero slides with different content and project links
 const heroSlides = [
@@ -72,10 +72,28 @@ export default function HeroSection() {
   const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
   const currentSlide = heroSlides[currentSlideIndex];
   const isVideoSlide = currentSlide.type === "video";
+  const videoRef = useRef<HeroVideoRef>(null);
+
+  // Handle video ended - advance to next slide
+  const handleVideoEnded = () => {
+    setCurrentSlideIndex((prev) => (prev + 1) % heroSlides.length);
+  };
+
+  // Restart video when returning to video slide
+  useEffect(() => {
+    if (isVideoSlide && videoRef.current) {
+      videoRef.current.restart();
+    }
+  }, [currentSlideIndex, isVideoSlide]);
 
   useEffect(() => {
-    // Use 8 seconds for video slides, 6 seconds for image slides
-    const slideDuration = isVideoSlide ? 8000 : 6000;
+    // Only auto-advance for image slides, not video slides
+    // Video slides will advance when video ends
+    if (isVideoSlide) {
+      return; // Don't set interval for video slides
+    }
+
+    const slideDuration = 6000; // 6 seconds for image slides
 
     const interval = setInterval(() => {
       setCurrentSlideIndex((prev) => (prev + 1) % heroSlides.length);
@@ -83,6 +101,12 @@ export default function HeroSection() {
 
     return () => clearInterval(interval);
   }, [currentSlideIndex, isVideoSlide]);
+
+  // Handle manual navigation - restart video if navigating to video slide
+  const handleSlideChange = (index: number) => {
+    setCurrentSlideIndex(index);
+    // If navigating to video slide, restart will be handled by useEffect
+  };
 
   return (
     <section className="relative h-screen w-full flex items-center justify-center overflow-hidden">
@@ -113,8 +137,11 @@ export default function HeroSection() {
               {slide.type === "video" ? (
                 <div className="absolute inset-0 overflow-hidden">
                   <HeroVideo
+                    ref={videoRef}
                     src={slide.src}
                     className="object-cover"
+                    isActive={index === currentSlideIndex}
+                    onEnded={index === currentSlideIndex ? handleVideoEnded : undefined}
                     style={{
                       objectPosition: "center top",
                       transform: "scale(1.15)",
@@ -279,7 +306,7 @@ export default function HeroSection() {
               index === currentSlideIndex ? "w-10 shadow-lg" : "w-2 bg-white/40 hover:bg-white/60"
             }`}
             style={index === currentSlideIndex ? { background: "var(--color-accent-main)" } : {}}
-            onClick={() => setCurrentSlideIndex(index)}
+            onClick={() => handleSlideChange(index)}
             aria-label={`View slide ${index + 1}: ${heroSlides[index].title}`}
           />
         ))}

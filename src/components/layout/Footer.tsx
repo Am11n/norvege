@@ -393,7 +393,7 @@ export default function Footer() {
           >
             Developed by{" "}
             <a
-              href="https://xala.tech"
+              href="https://xala.no"
               target="_blank"
               rel="noopener noreferrer"
               className="hover:opacity-80 transition-opacity inline-flex items-center gap-1.5"

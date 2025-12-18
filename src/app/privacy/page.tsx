@@ -17,27 +17,47 @@ export default function PrivacyPage() {
   }
 
   return (
-    <div className="min-h-screen">
-      <section className="section relative" style={{ background: "var(--color-navy-900)" }}>
+    <div className="min-h-screen bg-white">
+      {/* Hero Section */}
+      <section
+        className="section relative overflow-hidden"
+        style={{ background: "var(--color-navy-900)" }}
+      >
         <div className="container">
-          <div className="max-w-3xl">
+          <div className="max-w-4xl mx-auto text-center lg:text-left">
             <h1
-              className="text-5xl md:text-6xl font-bold mb-6"
-              style={{ color: "var(--color-sand-50)" }}
+              className="text-4xl md:text-5xl lg:text-6xl font-bold mb-4 lg:mb-6"
+              style={{
+                color: "var(--color-gray-50)",
+                fontFamily: "var(--font-family-heading)",
+                lineHeight: "1.1",
+              }}
             >
               {page.title}
             </h1>
             {page.lastUpdated && (
-              <p className="text-lg" style={{ color: "var(--color-sand-100)" }}>
-                Last Updated: {new Date(page.lastUpdated).toLocaleDateString()}
+              <p
+                className="text-lg md:text-xl"
+                style={{
+                  color: "var(--color-gray-200)",
+                  fontFamily: "var(--font-family-body)",
+                }}
+              >
+                Last updated:{" "}
+                {new Date(page.lastUpdated).toLocaleDateString("en-US", {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                })}
               </p>
             )}
           </div>
         </div>
       </section>
 
-      <section className="section bg-white">
-        <div className="container max-w-4xl">
+      {/* Content Section */}
+      <section className="section bg-white py-12 lg:py-16">
+        <div className="container max-w-7xl">
           <LegalContent content={page.content} />
         </div>
       </section>

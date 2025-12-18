@@ -346,7 +346,7 @@ export default function BlockchainSection() {
                   fontWeight: "var(--font-weight-bold)",
                 }}
               >
-                Learn More
+                Contact Us
                 <ArrowRightIcon className="w-5 h-5" />
               </Link>
             </motion.div>

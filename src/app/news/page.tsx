@@ -1,17 +1,84 @@
 import type { Metadata } from "next";
 import { generateMetadata as generateSEOMetadata } from "@/lib/seo";
-import { reportArchive } from "@/content/resources";
 import Link from "next/link";
 
 export const metadata: Metadata = generateSEOMetadata({
-  title: "Report Archive - NORVEGE MINERALS AS",
-  description: "Access our annual reports, quarterly reports, and ESG reports.",
-  path: "/report-archive",
+  title: "News & Updates - NORVEGE MINERALS AS",
+  description: "Latest news, updates, and announcements from NORVEGE MINERALS AS.",
+  path: "/news",
 });
 
-export default function ReportArchivePage() {
+interface NewsItem {
+  title: string;
+  date: string;
+  category: string;
+  excerpt: string;
+  href?: string;
+}
+
+const newsItems: NewsItem[] = [
+  {
+    title: "Major Rare Earth Element Discovery at Snøfjell Project",
+    date: "2025-04-15",
+    category: "Exploration",
+    excerpt:
+      "NORVEGE MINERALS AS announces significant rare earth element discovery at the Snøfjell project, with 350,000 tonnes of ore documented. This represents one of the largest REE discoveries in Norway.",
+    href: "/projects/snoefjell",
+  },
+  {
+    title: "Q1 2025 Quarterly Report Published",
+    date: "2025-04-20",
+    category: "Financial",
+    excerpt:
+      "The company has published its first quarter 2025 report, highlighting strong exploration progress and continued expansion of the license portfolio across Norway.",
+  },
+  {
+    title: "Malm Mine Water Resource Project Launch",
+    date: "2025-03-10",
+    category: "Innovation",
+    excerpt:
+      "NORVEGE MINERALS AS launches innovative mine water resource project utilizing 7-10 million m³ of ion-rich mine water, demonstrating commitment to sustainable resource utilization.",
+  },
+  {
+    title: "Partnership Agreement with NTNU",
+    date: "2025-02-28",
+    category: "Partnerships",
+    excerpt:
+      "New research collaboration agreement signed with Norwegian University of Science and Technology (NTNU) to advance exploration technologies and sustainable mining practices.",
+  },
+  {
+    title: "ESG Report 2024 Released",
+    date: "2025-02-10",
+    category: "ESG",
+    excerpt:
+      "Comprehensive ESG report for 2024 published, detailing environmental performance, community engagement initiatives, and governance practices. The report highlights our commitment to responsible mining.",
+  },
+  {
+    title: "Expansion of Exploration Portfolio",
+    date: "2025-01-15",
+    category: "Exploration",
+    excerpt:
+      "Company expands exploration portfolio to 72 active licenses covering 2,400 km² across Norway, focusing on critical minerals essential for the energy transition.",
+  },
+  {
+    title: "Technical Report: Snøfjell Deposit",
+    date: "2024-12-20",
+    category: "Technical",
+    excerpt:
+      "Detailed technical report on the Snøfjell rare earth element deposit published, providing comprehensive geological and resource information for investors and stakeholders.",
+  },
+  {
+    title: "Community Engagement Initiative",
+    date: "2024-11-18",
+    category: "Community",
+    excerpt:
+      "Launch of enhanced community engagement program in project areas, including regular stakeholder meetings, environmental monitoring updates, and local employment opportunities.",
+  },
+];
+
+export default function NewsPage() {
   return (
-    <div className="min-h-screen">
+    <div className="min-h-screen bg-white">
       {/* Hero Section */}
       <section className="relative overflow-hidden min-h-[500px] lg:min-h-[600px] flex items-center">
         {/* Gradient Background */}
@@ -60,7 +127,7 @@ export default function ReportArchivePage() {
                   border: `1px solid color-mix(in srgb, var(--color-accent-main) 40%, transparent)`,
                 }}
               >
-                Resources
+                Latest News
               </span>
             </div>
 
@@ -72,7 +139,7 @@ export default function ReportArchivePage() {
                 fontFamily: "var(--font-family-heading)",
               }}
             >
-              Report Archive
+              News & Updates
             </h1>
 
             {/* Description */}
@@ -83,45 +150,45 @@ export default function ReportArchivePage() {
                 fontFamily: "var(--font-family-body)",
               }}
             >
-              Access our comprehensive collection of annual reports, quarterly updates, ESG
-              documentation, and technical reports
+              Stay informed about our latest developments, discoveries, partnerships, and company
+              announcements
             </p>
           </div>
         </div>
       </section>
 
-      {/* Reports List */}
+      {/* News List */}
       <section className="section bg-white py-12 lg:py-16">
         <div className="container max-w-6xl">
           {/* Filter Tabs */}
           <div className="flex flex-wrap gap-3 mb-8 pb-4 border-b border-gray-200">
             <button className="px-4 py-2 rounded-lg font-medium transition-colors bg-[var(--color-accent-main)] text-[var(--color-accent-contrast)]">
-              All Reports
+              All News
             </button>
             <button className="px-4 py-2 rounded-lg font-medium transition-colors text-gray-600 hover:bg-gray-100">
-              Annual Reports
+              Exploration
             </button>
             <button className="px-4 py-2 rounded-lg font-medium transition-colors text-gray-600 hover:bg-gray-100">
-              Quarterly Reports
+              Financial
             </button>
             <button className="px-4 py-2 rounded-lg font-medium transition-colors text-gray-600 hover:bg-gray-100">
-              ESG Reports
+              ESG
             </button>
             <button className="px-4 py-2 rounded-lg font-medium transition-colors text-gray-600 hover:bg-gray-100">
-              Technical Reports
+              Partnerships
             </button>
           </div>
 
-          {/* Reports Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {reportArchive.map((report, index) => (
-              <div
+          {/* News Grid */}
+          <div className="space-y-6">
+            {newsItems.map((item, index) => (
+              <article
                 key={index}
                 className="border border-gray-200 rounded-lg p-6 hover:shadow-lg transition-shadow bg-white"
               >
-                <div className="flex flex-col h-full">
+                <div className="flex flex-col md:flex-row md:items-start gap-4">
                   <div className="flex-1">
-                    <div className="flex items-start justify-between mb-3">
+                    <div className="flex items-center gap-3 mb-3">
                       <span
                         className="px-3 py-1 rounded-full text-xs font-semibold"
                         style={{
@@ -130,58 +197,40 @@ export default function ReportArchivePage() {
                           color: "var(--color-accent-main)",
                         }}
                       >
-                        {report.title.includes("Annual")
-                          ? "Annual"
-                          : report.title.includes("Quarterly")
-                            ? "Quarterly"
-                            : report.title.includes("ESG")
-                              ? "ESG"
-                              : "Technical"}
+                        {item.category}
                       </span>
-                      {report.date && (
-                        <span className="text-xs text-gray-500">
-                          {new Date(report.date).toLocaleDateString("en-US", {
-                            year: "numeric",
-                            month: "short",
-                          })}
-                        </span>
-                      )}
-                    </div>
-                    <h3
-                      className="text-xl font-bold mb-2"
-                      style={{ color: "var(--color-primary-main)" }}
-                    >
-                      {report.title}
-                    </h3>
-                    {report.description && (
-                      <p className="text-gray-600 text-sm mb-4 leading-relaxed">
-                        {report.description}
-                      </p>
-                    )}
-                    {report.date && (
-                      <p className="text-xs text-gray-500 mb-4">
-                        Published:{" "}
-                        {new Date(report.date).toLocaleDateString("en-US", {
+                      <time className="text-sm text-gray-500" dateTime={item.date}>
+                        {new Date(item.date).toLocaleDateString("en-US", {
                           year: "numeric",
                           month: "long",
                           day: "numeric",
                         })}
-                      </p>
-                    )}
-                  </div>
-                  <div className="mt-auto">
-                    {report.type === "pdf" ? (
-                      <a
-                        href={report.href}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="inline-flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-colors hover:opacity-90"
-                        style={{
-                          background: "var(--color-accent-main)",
-                          color: "var(--color-accent-contrast)",
-                        }}
-                        aria-label={`Download ${report.title} (PDF)`}
+                      </time>
+                    </div>
+                    <h2
+                      className="text-2xl font-bold mb-3"
+                      style={{ color: "var(--color-primary-main)" }}
+                    >
+                      {item.href ? (
+                        <Link
+                          href={item.href}
+                          className="hover:underline"
+                          style={{ color: "var(--color-primary-main)" }}
+                        >
+                          {item.title}
+                        </Link>
+                      ) : (
+                        item.title
+                      )}
+                    </h2>
+                    <p className="text-gray-600 leading-relaxed mb-4">{item.excerpt}</p>
+                    {item.href && (
+                      <Link
+                        href={item.href}
+                        className="inline-flex items-center gap-2 text-sm font-medium"
+                        style={{ color: "var(--color-accent-main)" }}
                       >
+                        Read more
                         <svg
                           className="w-4 h-4"
                           fill="none"
@@ -192,46 +241,36 @@ export default function ReportArchivePage() {
                             strokeLinecap="round"
                             strokeLinejoin="round"
                             strokeWidth={2}
-                            d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                            d="M9 5l7 7-7 7"
                           />
                         </svg>
-                        Download PDF
-                      </a>
-                    ) : (
-                      <Link
-                        href={report.href}
-                        className="inline-flex items-center gap-2 px-4 py-2 rounded-lg font-medium transition-colors"
-                        style={{
-                          background: "var(--color-accent-main)",
-                          color: "var(--color-accent-contrast)",
-                        }}
-                      >
-                        View Report
                       </Link>
                     )}
                   </div>
                 </div>
-              </div>
+              </article>
             ))}
           </div>
 
-          {/* Info Section */}
-          <div className="mt-12 p-6 rounded-lg" style={{ background: "var(--color-bg-subtle)" }}>
-            <h3 className="text-xl font-bold mb-3" style={{ color: "var(--color-primary-main)" }}>
-              About Our Reports
+          {/* Newsletter Signup */}
+          <div className="mt-12 p-8 rounded-lg" style={{ background: "var(--color-bg-subtle)" }}>
+            <h3 className="text-2xl font-bold mb-4" style={{ color: "var(--color-primary-main)" }}>
+              Stay Updated
             </h3>
-            <p className="text-gray-600 mb-4">
-              All reports are prepared in accordance with Norwegian accounting standards and
-              international best practices. For questions about our reports or to request additional
-              information, please contact our investor relations team.
+            <p className="text-gray-600 mb-6">
+              Subscribe to our newsletter to receive the latest news and updates directly to your
+              inbox.
             </p>
             <Link
               href="/contact"
-              className="inline-flex items-center gap-2 text-sm font-medium"
-              style={{ color: "var(--color-accent-main)" }}
+              className="inline-flex items-center gap-2 px-6 py-3 rounded-lg font-semibold transition-all hover:opacity-90 hover:shadow-lg"
+              style={{
+                background: "var(--color-accent-main)",
+                color: "var(--color-accent-contrast)",
+              }}
             >
-              Contact Investor Relations
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              Subscribe to Newsletter
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"

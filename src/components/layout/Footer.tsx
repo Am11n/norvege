@@ -30,8 +30,6 @@ export default function Footer() {
     { href: "/exploration-specialists", label: "Exploration Specialists" },
     { href: "/partners", label: "Partners" },
     { href: "/news", label: "News & Updates" },
-    { href: "/contact", label: "Contact" },
-    { href: "https://www.norchain.org/", label: "NorChain", external: true },
   ];
 
   return (
@@ -385,33 +383,38 @@ export default function Footer() {
           >
             © {currentYear} {companyInfo.legalName || "Norvege Minerals AS"}. All rights reserved.
           </p>
-          <p
+          <a
+            href="https://xala.no"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="inline-flex items-center gap-1.5 cursor-pointer transition-colors duration-200"
             style={{
-              color: "color-mix(in srgb, var(--color-text-on-dark) 60%, transparent)",
+              color: "var(--color-accent-main)",
               fontFamily: "var(--font-family-body)",
+              position: "relative",
+              zIndex: 10,
+              pointerEvents: "auto",
+              textDecoration: "none",
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.color = "var(--color-accent-hover)";
+              e.currentTarget.style.textDecoration = "underline";
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.color = "var(--color-accent-main)";
+              e.currentTarget.style.textDecoration = "none";
             }}
           >
-            Developed by{" "}
-            <a
-              href="https://xala.no"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:opacity-80 transition-opacity inline-flex items-center gap-1.5"
-              style={{
-                color: "var(--color-accent-main)",
-              }}
-            >
-              Xala Technologies
-              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
-                />
-              </svg>
-            </a>
-          </p>
+            Developed by Xala Technologies
+            <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"
+              />
+            </svg>
+          </a>
         </div>
       </div>
     </footer>

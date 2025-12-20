@@ -71,17 +71,21 @@ export default function Header() {
 
   const accentColor = "var(--color-accent-main)";
   const navyColor = "var(--color-primary-main)";
+  // Darker navy colors for different states (solid colors, no opacity)
+  const navyDark = "#152a4a"; // Darker shade for hero section
+  const navyMedium = "#1a3a6a"; // Medium shade
+  const navyBase = "#1c355e"; // Base navy color
 
   // Determine background color based on scroll position
   const getBackgroundColor = () => {
     if (inHeroSection) {
-      // Darker blue when in hero section
-      return `linear-gradient(180deg, ${navyColor} 0%, ${navyColor}dd 100%)`;
+      // Darker blue when in hero section - using solid color
+      return `linear-gradient(180deg, ${navyDark} 0%, ${navyMedium} 100%)`;
     }
     if (scrolled) {
-      return `${navyColor}`;
+      return navyBase;
     }
-    return `linear-gradient(180deg, ${navyColor}f5 0%, ${navyColor}ee 100%)`;
+    return `linear-gradient(180deg, ${navyMedium} 0%, ${navyBase} 100%)`;
   };
 
   return (
@@ -89,12 +93,10 @@ export default function Header() {
       className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
       style={{
         background: getBackgroundColor(),
-        backdropFilter: scrolled ? "blur(16px)" : "blur(12px)",
-        WebkitBackdropFilter: scrolled ? "blur(16px)" : "blur(12px)",
         boxShadow: scrolled
-          ? `0 8px 32px rgba(0, 0, 0, 0.5), 0 0 0 1px color-mix(in srgb, var(--color-accent-main) 25%, transparent)`
-          : `0 4px 20px rgba(0, 0, 0, 0.3), 0 0 0 1px color-mix(in srgb, var(--color-accent-main) 15%, transparent)`,
-        borderBottom: `1px solid color-mix(in srgb, var(--color-accent-main) ${scrolled ? "30%" : inHeroSection ? "25%" : "15%"}, transparent)`,
+          ? `0 8px 32px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(227, 161, 66, 0.3)`
+          : `0 4px 20px rgba(0, 0, 0, 0.3), 0 0 0 1px rgba(227, 161, 66, 0.2)`,
+        borderBottom: `1px solid ${scrolled ? "rgba(227, 161, 66, 0.4)" : inHeroSection ? "rgba(227, 161, 66, 0.3)" : "rgba(227, 161, 66, 0.2)"}`,
       }}
     >
       {/* Enhanced background pattern - more visible when scrolled */}

@@ -242,8 +242,9 @@ export default function Footer() {
             </h3>
             <ul className="space-y-3">
               {resourcesLinks.map((link, index) => {
-                const LinkComponent = link.external ? "a" : Link;
-                const linkProps = link.external
+                const isExternal = link.href.startsWith("http");
+                const LinkComponent = isExternal ? "a" : Link;
+                const linkProps = isExternal
                   ? { href: link.href, target: "_blank", rel: "noopener noreferrer" }
                   : { href: link.href };
                 return (
@@ -268,7 +269,7 @@ export default function Footer() {
                     >
                       {link.label}
                     </LinkComponent>
-                    {link.external && (
+                    {isExternal && (
                       <svg
                         className="w-3.5 h-3.5 transition-colors duration-200"
                         fill="none"

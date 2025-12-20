@@ -12,11 +12,16 @@ export default function Header() {
   const [projectsDropdownOpen, setProjectsDropdownOpen] = useState(false);
   const [mobileProjectsOpen, setMobileProjectsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [inHeroSection, setInHeroSection] = useState(true);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 10); // Trigger earlier for better visibility
+      const scrollY = window.scrollY;
+      const viewportHeight = window.innerHeight;
+      // Check if we're in the hero section (first viewport height)
+      setInHeroSection(scrollY < viewportHeight * 0.9); // 90% of viewport to account for some overlap
+      setScrolled(scrollY > 10); // Trigger earlier for better visibility
     };
     window.addEventListener("scroll", handleScroll);
     // Set initial state
@@ -67,19 +72,29 @@ export default function Header() {
   const accentColor = "var(--color-accent-main)";
   const navyColor = "var(--color-primary-main)";
 
+  // Determine background color based on scroll position
+  const getBackgroundColor = () => {
+    if (inHeroSection) {
+      // Darker blue when in hero section
+      return `linear-gradient(180deg, ${navyColor} 0%, ${navyColor}dd 100%)`;
+    }
+    if (scrolled) {
+      return `${navyColor}`;
+    }
+    return `linear-gradient(180deg, ${navyColor}f5 0%, ${navyColor}ee 100%)`;
+  };
+
   return (
     <header
       className="fixed top-0 left-0 right-0 z-50 transition-all duration-300"
       style={{
-        background: scrolled
-          ? `${navyColor}`
-          : `linear-gradient(180deg, ${navyColor}f5 0%, ${navyColor}ee 100%)`,
+        background: getBackgroundColor(),
         backdropFilter: scrolled ? "blur(16px)" : "blur(12px)",
         WebkitBackdropFilter: scrolled ? "blur(16px)" : "blur(12px)",
         boxShadow: scrolled
           ? `0 8px 32px rgba(0, 0, 0, 0.5), 0 0 0 1px color-mix(in srgb, var(--color-accent-main) 25%, transparent)`
           : `0 4px 20px rgba(0, 0, 0, 0.3), 0 0 0 1px color-mix(in srgb, var(--color-accent-main) 15%, transparent)`,
-        borderBottom: `1px solid color-mix(in srgb, var(--color-accent-main) ${scrolled ? "30%" : "15%"}, transparent)`,
+        borderBottom: `1px solid color-mix(in srgb, var(--color-accent-main) ${scrolled ? "30%" : inHeroSection ? "25%" : "15%"}, transparent)`,
       }}
     >
       {/* Enhanced background pattern - more visible when scrolled */}

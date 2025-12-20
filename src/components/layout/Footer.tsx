@@ -1,36 +1,46 @@
 "use client";
 
 import Link from "next/link";
+import { useMemo, memo } from "react";
 import { companyInfo } from "@/content/company";
 import Logo from "@/components/ui/Logo";
 import NorChainLogo from "@/components/ui/NorChainLogo";
 import { projects } from "@/content/projects";
 
-export default function Footer() {
+function Footer() {
   const currentYear = new Date().getFullYear();
 
-  const companyLinks = [
-    { href: "/about", label: "About Us" },
-    { href: "/privacy", label: "Privacy Policy" },
-    { href: "/terms", label: "Terms of Service" },
-  ];
+  const companyLinks = useMemo(
+    () => [
+      { href: "/about", label: "About Us" },
+      { href: "/privacy", label: "Privacy Policy" },
+      { href: "/terms", label: "Terms of Service" },
+    ],
+    []
+  );
 
-  const projectLinks = [
-    { href: "/projects", label: "Overview" },
-    ...projects.map((project) => ({
-      href: `/projects/${project.slug}`,
-      label: project.name === "Skrattås-Byafossen" ? "Skrattåsen" : project.name,
-    })),
-  ];
+  const projectLinks = useMemo(
+    () => [
+      { href: "/projects", label: "Overview" },
+      ...projects.map((project) => ({
+        href: `/projects/${project.slug}`,
+        label: project.name === "Skrattås-Byafossen" ? "Skrattåsen" : project.name,
+      })),
+    ],
+    []
+  );
 
-  const resourcesLinks = [
-    { href: "/report-archive", label: "Report Archive" },
-    { href: "/vdr", label: "Virtual Data Room (VDR)" },
-    { href: "/laboratories", label: "Laboratories" },
-    { href: "/exploration-specialists", label: "Exploration Specialists" },
-    { href: "/partners", label: "Partners" },
-    { href: "/news", label: "News & Updates" },
-  ];
+  const resourcesLinks = useMemo(
+    () => [
+      { href: "/report-archive", label: "Report Archive" },
+      { href: "/vdr", label: "Virtual Data Room (VDR)" },
+      { href: "/laboratories", label: "Laboratories" },
+      { href: "/exploration-specialists", label: "Exploration Specialists" },
+      { href: "/partners", label: "Partners" },
+      { href: "/news", label: "News & Updates" },
+    ],
+    []
+  );
 
   return (
     <footer
@@ -421,3 +431,5 @@ export default function Footer() {
     </footer>
   );
 }
+
+export default memo(Footer);

@@ -16,14 +16,23 @@ export default function Header() {
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    let ticking = false;
+
     const handleScroll = () => {
-      const scrollY = window.scrollY;
-      const viewportHeight = window.innerHeight;
-      // Check if we're in the hero section (first viewport height)
-      setInHeroSection(scrollY < viewportHeight * 0.9); // 90% of viewport to account for some overlap
-      setScrolled(scrollY > 10); // Trigger earlier for better visibility
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const scrollY = window.scrollY;
+          const viewportHeight = window.innerHeight;
+          // Check if we're in the hero section (first viewport height)
+          setInHeroSection(scrollY < viewportHeight * 0.9); // 90% of viewport to account for some overlap
+          setScrolled(scrollY > 10); // Trigger earlier for better visibility
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
-    window.addEventListener("scroll", handleScroll);
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
     // Set initial state
     handleScroll();
     return () => window.removeEventListener("scroll", handleScroll);

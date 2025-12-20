@@ -112,7 +112,7 @@ const HeroVideo = forwardRef<HeroVideoRef, HeroVideoProps>(
         muted
         playsInline
         poster={poster}
-        preload="auto"
+        preload={isActive ? "auto" : "metadata"}
         style={{
           opacity: isLoaded ? 1 : 0,
           transition: "opacity 1s ease-in-out",

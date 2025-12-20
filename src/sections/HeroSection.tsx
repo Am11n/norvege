@@ -113,79 +113,85 @@ export default function HeroSection() {
       {/* Background Media Carousel (Images and Videos) */}
       <div className="absolute inset-0 w-full h-full z-[1]">
         <AnimatePresence mode="wait">
-          {heroSlides.map((slide, index) => (
-            <motion.div
-              key={`${slide.src}-${index}`}
-              initial={{ opacity: 0, scale: 1.1 }}
-              animate={{
-                opacity: index === currentSlideIndex ? 1 : 0,
-                scale: index === currentSlideIndex ? 1 : 1.1,
-              }}
-              exit={{ opacity: 0, scale: 1.1 }}
-              transition={{ duration: 1.5, ease: "easeInOut" }}
-              className="absolute inset-0"
-            >
-              {/* Fallback gradient background */}
-              <div
-                className="absolute inset-0 bg-gradient-to-br from-charcoal-950 via-charcoal-900 to-charcoal-950"
-                style={{
-                  backgroundImage: slide.gradient,
+          {/* Only render current slide and next slide for performance */}
+          {[currentSlideIndex, (currentSlideIndex + 1) % heroSlides.length].map((slideIndex) => {
+            const slide = heroSlides[slideIndex];
+            const isActive = slideIndex === currentSlideIndex;
+            return (
+              <motion.div
+                key={`${slide.src}-${slideIndex}`}
+                initial={{ opacity: 0, scale: 1.1 }}
+                animate={{
+                  opacity: isActive ? 1 : 0,
+                  scale: isActive ? 1 : 1.1,
                 }}
-              />
-
-              {/* Render Video or Image based on slide type */}
-              {slide.type === "video" ? (
-                <div className="absolute inset-0 overflow-hidden">
-                  <HeroVideo
-                    ref={videoRef}
-                    src={slide.src}
-                    className="object-cover"
-                    isActive={index === currentSlideIndex}
-                    onEnded={index === currentSlideIndex ? handleVideoEnded : undefined}
-                    style={{
-                      objectPosition: "center top",
-                      transform: "scale(1.15)",
-                    }}
-                  />
-                </div>
-              ) : (
-                <Image
-                  src={slide.src}
-                  alt={slide.alt}
-                  fill
-                  priority={index === 0}
-                  className="object-cover"
-                  sizes="100vw"
-                  quality={90}
-                  onError={(e) => {
-                    // Hide image if it fails to load, show gradient fallback
-                    const target = e.target as HTMLImageElement;
-                    target.style.display = "none";
+                exit={{ opacity: 0, scale: 1.1 }}
+                transition={{ duration: 1.5, ease: "easeInOut" }}
+                className="absolute inset-0"
+              >
+                {/* Fallback gradient background */}
+                <div
+                  className="absolute inset-0 bg-gradient-to-br from-charcoal-950 via-charcoal-900 to-charcoal-950"
+                  style={{
+                    backgroundImage: slide.gradient,
                   }}
                 />
-              )}
 
-              {/* Deep Navy Overlay for better text readability - only show on image slides */}
-              {slide.type === "image" && (
-                <>
-                  <div
-                    className="absolute inset-0 hero-overlay"
-                    style={{
-                      background: `linear-gradient(to bottom, color-mix(in srgb, var(--color-primary-main) 75%, transparent) 0%, color-mix(in srgb, var(--color-primary-main) 55%, transparent) 100%)`,
+                {/* Render Video or Image based on slide type */}
+                {slide.type === "video" ? (
+                  <div className="absolute inset-0 overflow-hidden">
+                    <HeroVideo
+                      ref={isActive ? videoRef : null}
+                      src={slide.src}
+                      className="object-cover"
+                      isActive={isActive}
+                      onEnded={isActive ? handleVideoEnded : undefined}
+                      style={{
+                        objectPosition: "center top",
+                        transform: "scale(1.15)",
+                      }}
+                    />
+                  </div>
+                ) : (
+                  <Image
+                    src={slide.src}
+                    alt={slide.alt}
+                    fill
+                    priority={slideIndex === 0 && isActive}
+                    className="object-cover"
+                    sizes="100vw"
+                    quality={75}
+                    loading={isActive && slideIndex === 0 ? "eager" : "lazy"}
+                    onError={(e) => {
+                      // Hide image if it fails to load, show gradient fallback
+                      const target = e.target as HTMLImageElement;
+                      target.style.display = "none";
                     }}
                   />
-                  {/* Subtle pattern overlay */}
-                  <div
-                    className="absolute inset-0 opacity-70"
-                    style={{
-                      backgroundImage: `radial-gradient(circle at 2px 2px, rgba(255,255,255,0.1) 1px, transparent 0)`,
-                      backgroundSize: "40px 40px",
-                    }}
-                  />
-                </>
-              )}
-            </motion.div>
-          ))}
+                )}
+
+                {/* Deep Navy Overlay for better text readability - only show on image slides */}
+                {slide.type === "image" && (
+                  <>
+                    <div
+                      className="absolute inset-0 hero-overlay"
+                      style={{
+                        background: `linear-gradient(to bottom, color-mix(in srgb, var(--color-primary-main) 75%, transparent) 0%, color-mix(in srgb, var(--color-primary-main) 55%, transparent) 100%)`,
+                      }}
+                    />
+                    {/* Subtle pattern overlay */}
+                    <div
+                      className="absolute inset-0 opacity-70"
+                      style={{
+                        backgroundImage: `radial-gradient(circle at 2px 2px, rgba(255,255,255,0.1) 1px, transparent 0)`,
+                        backgroundSize: "40px 40px",
+                      }}
+                    />
+                  </>
+                )}
+              </motion.div>
+            );
+          })}
         </AnimatePresence>
       </div>
 

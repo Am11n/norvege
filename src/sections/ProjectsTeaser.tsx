@@ -118,7 +118,7 @@ function ProjectImageRotator({ images, alt }: { images: string[]; alt: string })
           fill
           className="object-cover z-10"
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 50vw"
-          quality={90}
+          quality={75}
           unoptimized={src.startsWith("http")}
           onError={(e) => {
             const target = e.target as HTMLImageElement;

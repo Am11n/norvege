@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import InvestorsHeroImage from "@/components/ui/InvestorsHeroImage";
+import { resourceValuationMethodology } from "@/content/company";
 
 export const metadata: Metadata = {
   title: "Investor Relations - NORVEGE MINERALS AS",
@@ -76,7 +77,7 @@ export default function InvestorsPage() {
                   className="text-3xl md:text-4xl lg:text-5xl font-extrabold mb-2"
                   style={{ color: "var(--color-accent-main)" }}
                 >
-                  1,200
+                  4,885
                 </div>
                 <div
                   className="text-sm md:text-base uppercase tracking-wider"
@@ -84,7 +85,7 @@ export default function InvestorsPage() {
                     color: "color-mix(in srgb, var(--color-text-on-dark) 70%, transparent)",
                   }}
                 >
-                  Billion NOK Est. Value
+                  Trillion NOK Est. Value
                 </div>
               </div>
               <div className="text-center">
@@ -92,7 +93,7 @@ export default function InvestorsPage() {
                   className="text-3xl md:text-4xl lg:text-5xl font-extrabold mb-2"
                   style={{ color: "var(--color-accent-main)" }}
                 >
-                  72
+                  74
                 </div>
                 <div
                   className="text-sm md:text-base uppercase tracking-wider"
@@ -108,7 +109,7 @@ export default function InvestorsPage() {
                   className="text-3xl md:text-4xl lg:text-5xl font-extrabold mb-2"
                   style={{ color: "var(--color-accent-main)" }}
                 >
-                  2,400
+                  1,690
                 </div>
                 <div
                   className="text-sm md:text-base uppercase tracking-wider"
@@ -315,10 +316,10 @@ export default function InvestorsPage() {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-8 max-w-6xl mx-auto">
             {[
-              { label: "Exploration Licenses", value: "72", icon: "📋" },
-              { label: "Total Area", value: "2,400", unit: "km²", icon: "🗺️" },
-              { label: "Key Projects", value: "3", icon: "💎" },
-              { label: "Est. Value", value: "1,200", unit: "Billion NOK", icon: "💰" },
+              { label: "Exploration Licenses", value: "74", icon: "📋" },
+              { label: "Total Area", value: "1,690", unit: "km²", icon: "🗺️" },
+              { label: "Viable Finds", value: "31", icon: "💎" },
+              { label: "Est. Value", value: "4,885", unit: "Trillion NOK", icon: "💰" },
             ].map((fact, index) => (
               <div
                 key={index}
@@ -381,10 +382,78 @@ export default function InvestorsPage() {
         </div>
       </section>
 
-      {/* Documents */}
+      {/* Resource Valuation Methodology */}
       <section
         className="section relative overflow-hidden"
         style={{ background: "var(--color-bg-default)" }}
+      >
+        {/* Subtle background decoration */}
+        <div className="absolute inset-0 opacity-5">
+          <div
+            className="absolute top-0 right-0 w-96 h-96 rounded-full blur-3xl"
+            style={{ background: "var(--color-primary-main)" }}
+          />
+          <div
+            className="absolute bottom-0 left-0 w-96 h-96 rounded-full blur-3xl"
+            style={{ background: "var(--color-accent-main)" }}
+          />
+        </div>
+
+        <div className="container max-w-4xl relative z-10">
+          <div className="text-center mb-12">
+            <h2
+              className="text-display mb-4"
+              style={{
+                color: "var(--color-primary-main)",
+                fontFamily: "var(--font-family-heading)",
+                fontWeight: "var(--font-weight-black)",
+                letterSpacing: "-0.02em",
+              }}
+            >
+              Resource Valuation{" "}
+              <span style={{ color: "var(--color-accent-main)" }}>Methodology</span>
+            </h2>
+            <p
+              className="text-lg md:text-xl max-w-2xl mx-auto"
+              style={{ color: "var(--color-text-secondary)" }}
+            >
+              How we calculate our resource estimates and valuations
+            </p>
+          </div>
+
+          <div
+            className="group p-8 lg:p-10 rounded-3xl relative overflow-hidden"
+            style={{
+              background: `linear-gradient(135deg, var(--color-bg-subtle) 0%, var(--color-bg-default) 100%)`,
+              border: `1px solid color-mix(in srgb, var(--color-primary-main) 30%, transparent)`,
+              boxShadow: "none",
+            }}
+          >
+            {/* Enhanced border glow on hover */}
+            <div
+              className="absolute inset-0 rounded-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none"
+              style={{
+                border: `2px solid var(--color-primary-main)`,
+              }}
+            />
+            <div className="relative">
+              <div className="prose prose-lg max-w-none">
+                <p
+                  className="text-base lg:text-lg leading-relaxed whitespace-pre-line"
+                  style={{ color: "var(--color-text-body)" }}
+                >
+                  {resourceValuationMethodology}
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Documents */}
+      <section
+        className="section relative overflow-hidden"
+        style={{ background: "var(--color-bg-subtle)" }}
       >
         {/* Subtle background decoration */}
         <div className="absolute inset-0 opacity-5">

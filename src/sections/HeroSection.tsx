@@ -34,7 +34,7 @@ const heroSlides = [
     title: "Responsible Mining for the",
     highlight: "Green Transition",
     description:
-      "Securing Europe's supply of vital resources. We hold 72 exploration licenses across 2,400 km², focusing on high-value minerals essential for renewable energy and geopolitical stability.",
+      "Securing Europe's supply of vital resources. We hold 74 exploration licenses across 1,690 km², focusing on high-value minerals essential for renewable energy and geopolitical stability.",
     projectSlug: "projects",
     ctaText: "Explore Our Assets",
     secondaryCtaText: "Our Technology",

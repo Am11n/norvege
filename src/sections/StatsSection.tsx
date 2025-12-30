@@ -55,8 +55,11 @@ const labelMap: Record<string, string> = {
   "km² Licensed Area": "KM² LICENSED AREA",
   "Viable Finds": "VIABLE FINDS",
   "Billion NOK Est. Value": "BILLION NOK EST. VALUE",
+  "Trillion NOK Est. Value": "TRILLION NOK EST. VALUE",
   "Significant REE Finds": "SIGNIFICANT REE FINDS",
+  "REE Mineral Types": "REE MINERAL TYPES",
   "Public Partnerships": "PUBLIC PARTNERSHIPS",
+  "Strategic Partnerships": "STRATEGIC PARTNERSHIPS",
   "Mining Licenses": "MINERAL HOLDINGS",
   "km² Exploration Area": "EXPLORATION AREA",
   "Elements Analyzed": "ELEMENTS ANALYZED",
@@ -189,9 +192,9 @@ export default function StatsSection() {
               letterSpacing: "-0.01em",
             }}
           >
-            Norvege Minerals is a leading mineral exploration company in Europe, with significant
-            license holdings and proven geological expertise across Norway&apos;s most promising
-            mineral districts.
+            Norve&apos;Ge Minerals is a Norwegian exploration company focused on unlocking mineral
+            value from historic mines and future-critical resources, combining traditional mining
+            with advanced water-based mineral extraction.
           </p>
         </motion.div>
 
